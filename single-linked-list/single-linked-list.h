@@ -93,7 +93,7 @@ public:
         // Возвращает ссылку на самого себя
         // Инкремент итератора, не указывающего на существующий элемент списка, приводит к неопределённому поведению
         BasicIterator& operator++() noexcept {
-            assert(this != nullptr);
+            assert(node_ != nullptr);
             auto new_node = node_->next_node;
             node_ = new_node;
             return *this;
@@ -113,7 +113,7 @@ public:
         // Вызов этого оператора у итератора, не указывающего на существующий элемент списка,
         // приводит к неопределённому поведению
         [[nodiscard]] reference operator*() const noexcept {
-            assert(this != nullptr);
+            assert(node_ != nullptr);
             return node_->value;
         }
 
@@ -121,7 +121,7 @@ public:
         // Вызов этого оператора у итератора, не указывающего на существующий элемент списка,
         // приводит к неопределённому поведению
         [[nodiscard]] pointer operator->() const noexcept {
-            assert(this != nullptr);
+            assert(node_ != nullptr);
             return &node_->value;
         }
 
@@ -220,11 +220,7 @@ public:
 
     // Сообщает, пустой ли список за время O(1)
     [[nodiscard]] bool IsEmpty() const noexcept {
-        if(GetSize() == 0){
-            return true;
-        } else { 
-            return false;
-        }
+        return (GetSize() == 0);
     }
 
     ~SingleLinkedList() {
